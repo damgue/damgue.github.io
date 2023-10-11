@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="it">
+   <head>
+      <meta charset="utf-8"/>
+      <title>ScoutFlix</title>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
+      <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+      <style>
+         body, html {
+         margin: 0;
+         padding: 0;
+         background-color: #000;
+         color: #fff;
+         font-family: 'Bebas Neue', cursive;
+         overflow-x: hidden;
+         }
+         .intro {
+         position: fixed;
+         width: 100%;
+         height: 100%;
+         background-color: #000;
+         z-index: 9999;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         }
+         .intro h1 {
+         font-family: 'Bebas Neue', cursive;
+         font-size: 8em;
+         color: #E50914;
+         opacity: 0;
+         animation: fadeInOut 5s forwards;
+         text-transform: uppercase;
+         letter-spacing: 2px;
+         }
+         @keyframes fadeInOut {
+         0% { opacity: 0; }
+         50% { opacity: 1; }
+         100% { opacity: 0; }
+         }
+         header {
+         background-color: #000;
+         color: #fff;
+         padding: 14px 20px;
+         font-size: 1.5em;
+         color: #E50914;
+         z-index: 2;
+         position: relative;
+         }
+         .logo {
+         font-family: 'Bebas Neue', cursive;
+         font-size: 2em;
+         color: #E50914;
+         }
+         .menu {
+         flex-grow: 1;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         }
+         .search {
+         display: flex;
+         align-items: center;
+         }
+         nav {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         background-color: #222;
+         overflow: hidden;
+         z-index: 1;
+         position: fixed;
+         top: 0;
+         width: 100%;
+         z-index: 100;
+         }
+         nav a {
+         float: left;
+         display: block;
+         color: white;
+         text-align: center;
+         padding: 14px 16px;
+         text-decoration: none;
+         }
+         nav {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         }
+         .container-fluid {
+         padding-top: 60px;
+         }
+         .category, .additional-category {
+         padding: 20px;
+         }
+         .category h2, .additional-category h2 {
+         font-size: 1.5em;
+         margin-bottom: 15px;
+         }
+         .category img, .additional-category img {
+         max-width: 100%;
+         transition: transform .2s ease-in-out;
+         }
+         .category img:hover, .additional-category img:hover {
+         transform: scale(1.05);
+         }
+         .sidebar {
+         position: fixed;
+         top: 0;
+         left: 0;
+         height: 100%;
+         width: 250px;
+         background-color: #111;
+         padding-top: 20px;
+         z-index: 1;
+         }
+         .sidebar a {
+         padding: 15px;
+         text-decoration: none;
+         font-size: 25px;
+         color: #818181;
+         display: block;
+         }
+         .sidebar a:hover {
+         color: #f1f1f1;
+         }
+         .search-box {
+         margin: 20px;
+         }
+         .col-md-4 p {
+         white-space: nowrap;
+         overflow: hidden;
+         text-overflow: ellipsis;
+         max-width: 100%;
+         }
+         .col-md-4 p {
+         word-wrap: break-word;
+         }
+         #category-0 {
+         background-color: #FF0000;
+         padding: 20px;
+         margin: 10px 0;
+         }
+         #category-1 {
+         background-color: #00FF00;
+         padding: 20px;
+         margin: 10px 0;
+         }
+         #category-2 {
+         background-color: #0000FF;
+         padding: 20px;
+         margin: 10px 0;
+         }
+         img {
+         width: 200px;
+         height: 200px;
+         object-fit: cover;
+         }
+         .modal-content {
+  width: 900px;
+  margin: auto;
+}
+.modal.show .modal-dialog{
+   display: flex;
+   justify-content: center;
+}
+video{
+   width: 100%;
+}
+      </style>
+   </head>
+   <body>
+      <div class="intro">
+         <h1>ScoutFlix</h1>
+      </div>
+      <header>
+         ScoutFlix
+      </header>
+      <nav>
+         <div class="logo">
+            <span style="margin-left: 10px;">SCOUTFLIX</span>
+         </div>
+         <div class="menu">
+            <a href="#home">Home</a>
+            <a href="#series">Serie</a>
+            <a href="#films">Film</a>
+            <a href="#new">Novità</a>
+            <a href="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/lista.html">La mia lista</a>
+         </div>
+         <div class="search">
+            <input class="form-control mr-sm-2" type="text" id="searchInput" placeholder="Cerca" aria-label="Cerca">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="searchButton"><i class="fas fa-search"></i></button>
+         </div>
+      </nav>
+      <div class="container-fluid">
+         <!-- Category: Animazione -->
+         <section class="category">
+            <h2 style="color:red; font-size:2.00rem;">Animazione</h2>
+            <h3>Film</h3>
+            <div class="row">
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/nemo.jpg"/>
+                  <p>Alla ricerca di Nemo (2003)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/frozen.jpg"/>
+                  <p>Frozen (2013)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/toystory.jpg"/>
+                  <p>Toy Story (1995)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/releone.jpg"/>
+                  <p>Il Re Leone (1994)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/bellabestia.jpeg"/>
+                  <p>La Bella e la Bestia (1991)</p>
+               </div>
+            </div>
+            <h3>Serie TV</h3>
+            <div class="row">
+               <div class="col-md-4">
+                  <img alt="Serie TV" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/simpson.jpg"/>
+                  <p>I Simpson</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Serie TV" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/sp.jpg"/>
+                  <p>South Park</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Serie TV" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/rem.jpg"/>
+                  <p>Rick e Morty</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Serie TV" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/su.jpg"/>
+                  <p>Steven Universe</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Serie TV" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/avatar.jpg"/>
+                  <p>Avatar: La leggenda di Aang</p>
+               </div>
+            </div>
+         </section>
+         <!-- Category: Avventura -->
+         <section class="category">
+            <h2 style="color:red; font-size:2.00rem;">Avventura</h2>
+            <h3>Film</h3>
+            <div class="row">
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/ij.jpg"/>
+                  <p>Indiana Jones e i Predatori dell'Arca Perduta (1981)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/signoreanelli.jpg"/>
+                  <p>Il Signore degli Anelli - La Compagnia dell'Anello (2001)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/pirati.jpg"/>
+                  <p>Pirati dei Caraibi(2003)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/jp.jpg"/>
+                  <p>Jurassic Park (1993)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/glad.jpg"/>
+                  <p>Il Gladiatore (2000)</p>
+               </div>
+            </div>
+            <h3>Serie TV</h3>
+            <div class="row">
+               <div class="col-md-4">
+                  <img alt="Serie TV" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/got.jpg"/>
+                  <p>Game of Thrones</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Serie TV" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/witcher.jpeg"/>
+                  <p>The Witcher</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Serie TV" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/mand.jpg"/>
+                  <p>The Mandalorian</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Serie TV" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/st.jpg"/>
+                  <p>Stranger Things</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Serie TV" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/crown.jpg"/>
+                  <p>The Crown</p>
+               </div>
+            </div>
+         </section>
+         <!-- Category: Commedia -->
+         <section class="category">
+            <h2 style="color:red; font-size:2.00rem;">Commedia</h2>
+            <h3>Film</h3>
+            <div class="row">
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/undl.jpg"/>
+                  <p>Una Notte da Leoni (2009)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/zool.jpg"/>
+                  <p>Zoolander (2001)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/sb.jpeg"/>
+                  <p>Superbad (2007)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/step.jpeg"/>
+                  <p>Step Brothers (2008)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/scemo.jpg"/>
+                  <p>Scemo & Più Scemo (1994)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/mg.jpg"/>
+                  <p>Mean Girls (2004)</p>
+               </div>
+            </div>
+         </section>
+         <!-- Category: Drammatico -->
+         <section class="category">
+            <h2 style="color:red; font-size:2.00rem;">Drammatico</h2>
+            <h3>Film</h3>
+            <div class="row">
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/padrino.jpeg"/>
+                  <p>Il Padrino (1972)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/sh.jpg"/>
+                  <p>Shawshank Redemption (1994)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/forrest.jpeg"/>
+                  <p>Forrest Gump (1994)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/sch.jpeg"/>
+                  <p>Schindler's List (1993)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/fgh.jpeg"/>
+                  <p>Fight Club (1999)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/cacc.jpeg"/>
+                  <p>Il Cacciatore (1978)</p>
+               </div>
+            </div>
+         </section>
+         <!-- Category: Thriller -->
+         <section class="category">
+            <h2 style="color:red; font-size:2.00rem;">Thriller</h2>
+            <h3>Film</h3>
+            <div class="row">
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/7.jpeg"/>
+                  <p>Seven (1995)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/isdi.jpeg"/>
+                  <p>Il Silenzio degli Innocenti (1991)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/inc.jpeg"/>
+                  <p>Inception (2010)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/si.jpeg"/>
+                  <p>Shutter Island (2010)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/pris.jpeg"/>
+                  <p>Prisoners (2013)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/dd.jpg"/>
+                  <p>Donnie Darko (2001)</p>
+               </div>
+            </div>
+         </section>
+         <!-- Category: Fantascienza -->
+         <section class="category">
+            <h2 style="color:red; font-size:2.00rem;">Fantascienza</h2>
+            <h3>Film</h3>
+            <div class="row">
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/matrix.jpg"/>
+                  <p>Matrix (1999)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/int.jpeg"/>
+                  <p>Interstellar (2014)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/br.jpeg"/>
+                  <p>Blade Runner (1982)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/2001.jpeg"/>
+                  <p>2001: Odissea nello Spazio (1968)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/avat.jpg"/>
+                  <p>Avatar (2009)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/term.jpeg"/>
+                  <p>Terminator 2 (1991)</p>
+               </div>
+            </div>
+         </section>
+         <!-- Category: Documentari -->
+         <section class="category">
+            <h2 style="color:red; font-size:2.00rem;">Documentari</h2>
+            <h3>Film</h3>
+            <div class="row">
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/bf.jpeg"/>
+                  <p>Blackfish (2013)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/an.jpeg"/>
+                  <p>An Inconvenient Truth (2006)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/far.jpg"/>
+                  <p>Fahrenheit 9/11 (2004)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/jiro.jpeg"/>
+                  <p>Jiro Dreams of Sushi (2011)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/kioll.jpeg"/>
+                  <p>The Act of Killing (2012)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/cove.jpeg"/>
+                  <p>The Cove (2009)</p>
+               </div>
+            </div>
+         </section>
+         <!-- Category: Horror -->
+         <section class="category">
+            <h2 style="color:red; font-size:2.00rem;">Horror</h2>
+            <h3>Film</h3>
+            <div class="row">
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/psy.jpg"/>
+                  <p>Psycho (1960)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/les.jpg"/>
+                  <p>L'Esorcista (1973)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/shin.jpg"/>
+                  <p>Shining (1980)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/saw.jpg"/>
+                  <p>Saw - L'enigmista (2004)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/ring.jpg"/>
+                  <p>Ringu (1998)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/go.jpeg"/>
+                  <p>Get Out (2017)</p>
+               </div>
+            </div>
+         </section>
+         <!-- Category: Romantici -->
+         <section class="category">
+            <h2 style="color:red; font-size:2.00rem;">Romantici</h2>
+            <h3>Film</h3>
+            <div class="row">
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/nil.jpeg"/>
+                  <p>Notting Hill (1999)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/lalala.jpeg"/>
+                  <p>La La Land (2016)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/cdt.jpeg"/>
+                  <p>Colazione da Tiffany (1961)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/org.jpg"/>
+                  <p>Orgoglio e pregiudizio (2005)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/am.jpg"/>
+                  <p>Amélie (2001)</p>
+               </div>
+            </div>
+         </section>
+         <!-- Category: Musical -->
+         <section class="category">
+            <h2 style="color:red; font-size:2.00rem;">Musical</h2>
+            <h3>Film</h3>
+            <div class="row">
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/wss.jpg"/>
+                  <p>West Side Story (1961)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/mr.jpg"/>
+                  <p>Moulin Rouge! (2001)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/tgs.jpg"/>
+                  <p>The Greatest Showman (2017)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/gr.jpg"/>
+                  <p>Grease (1978)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/mm.jpeg"/>
+                  <p>Mamma Mia! (2008)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/lm.jpg"/>
+                  <p>Les Misérables (2012)</p>
+               </div>
+            </div>
+         </section>
+         <!-- Category: Classici -->
+         <section class="category">
+            <h2 style="color:red; font-size:2.00rem;">Classici</h2>
+            <h3>Film</h3>
+            <div class="row">
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/vcv.jpg"/>
+                  <p>Via col vento (1939)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/cb.jpg"/>
+                  <p>Casablanca (1942)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/ck.jpeg"/>
+                  <p>Cittadino Kane (1941)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/ilmdh.jpg"/>
+                  <p>Il mostro della laguna nera (1954)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/12.png"/>
+                  <p>12 uomini arrabbiati (1957)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/posti.jpg"/>
+                  <p>Il postino suona sempre due volte (1946)</p>
+               </div>
+            </div>
+         </section>
+         <!-- Category: Fantasy -->
+         <section class="category">
+            <h2 style="color:red; font-size:2.00rem;">Fantasy</h2>
+            <h3>Film</h3>
+            <div class="row">
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/harry.jpeg"/>
+                  <p>Harry Potter e la pietra filosofale (2001)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/oz.jpg"/>
+                  <p>Il mago di Oz (1939)</p>
+               </div>
+               <div class="col-md-4">
+                  <img alt="Film" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/hob.jpeg"/>
+                  <p>Lo Hobbit (2012)</p>
+               </div>
+            </div>
+         </section>
+      <script>
+         setTimeout(function() {
+           document.querySelector('.intro').style.display = 'none';
+         }, 5000);
+         
+         function performSearch() {
+           var searchTerm = document.getElementById('searchInput').value.toLowerCase();
+           var allText = document.querySelectorAll('p');
+           var categories = document.querySelectorAll('.category');
+         
+           categories.forEach(function(category) {
+             var filmsInCategory = category.querySelectorAll('p');
+             var filmsVisible = 0;
+         
+             filmsInCategory.forEach(function(el) {
+               if (el.textContent.toLowerCase().includes(searchTerm)) {
+                 el.parentNode.style.display = 'block';
+                 filmsVisible++;
+               } else {
+                 el.parentNode.style.display = 'none';
+               }
+             });
+         
+             if (filmsVisible > 0) {
+               category.style.display = 'block';
+             } else {
+               category.style.display = 'none';
+             }
+           });
+         }
+         
+         document.getElementById('searchButton').addEventListener('click', performSearch);
+         
+         document.getElementById('searchInput').addEventListener('input', function(e) {
+           performSearch();
+         });
+
+         function showVideo(videoId) {
+    // Logica per mostrare il video corrispondente
+    let videoSrc = "";  // Inizializza la variabile per il percorso del video
+
+    // Assegna il percorso del video in base all'ID
+    switch(videoId) {
+        case 'video1':
+            videoSrc = "/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/BrancaLC/lc.mp4";
+            break;
+        case 'video2':
+            videoSrc = "/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/BrancaEG/eg.mp4";
+            break;
+        case 'video3':
+            //videoSrc = "percorso/del/tuo/video3.mp4";
+            break;
+        default:
+            console.error("ID del video non valido");
+            return;
+    }
+
+    // Imposta l'attributo 'src' dell'elemento video
+    document.getElementById('videoPlayer').src = videoSrc;
+
+    // Mostra il modal
+    $('#videoModal').modal('show');
+}
+$(document).ready(function() {
+  $('#myModal').on('shown.bs.modal', function () {
+    $(this).find('.modal-dialog').css({width:'auto',
+                               height:'auto', 
+                              'max-height':'100%'});
+  });
+});
+
+      </script>
+   </body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="it">
+   <head>
+      <meta charset="utf-8"/>
+      <title>ScoutFlix</title>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
+      <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+      <style>
+         body, html {
+         margin: 0;
+         padding: 0;
+         background-color: #000;
+         color: #fff;
+         font-family: 'Bebas Neue', cursive;
+         overflow-x: hidden;
+         }
+         .intro {
+         position: fixed;
+         width: 100%;
+         height: 100%;
+         background-color: #000;
+         z-index: 9999;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         }
+         .intro h1 {
+         font-family: 'Bebas Neue', cursive;
+         font-size: 8em;
+         color: #E50914;
+         opacity: 0;
+         animation: fadeInOut 5s forwards;
+         text-transform: uppercase;
+         letter-spacing: 2px;
+         }
+         @keyframes fadeInOut {
+         0% { opacity: 0; }
+         50% { opacity: 1; }
+         100% { opacity: 0; }
+         }
+         header {
+         background-color: #000;
+         color: #fff;
+         padding: 14px 20px;
+         font-size: 1.5em;
+         color: #E50914;
+         z-index: 2;
+         position: relative;
+         }
+         .logo {
+         font-family: 'Bebas Neue', cursive;
+         font-size: 2em;
+         color: #E50914;
+         }
+         .menu {
+         flex-grow: 1;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         }
+         .search {
+         display: flex;
+         align-items: center;
+         }
+         nav {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         background-color: #222;
+         overflow: hidden;
+         z-index: 1;
+         position: fixed;
+         top: 0;
+         width: 100%;
+         z-index: 100;
+         }
+         nav a {
+         float: left;
+         display: block;
+         color: white;
+         text-align: center;
+         padding: 14px 16px;
+         text-decoration: none;
+         }
+         nav {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         }
+         .container-fluid {
+         padding-top: 60px;
+         }
+         .category, .additional-category {
+         padding: 20px;
+         }
+         .category h2, .additional-category h2 {
+         font-size: 1.5em;
+         margin-bottom: 15px;
+         }
+         .category img, .additional-category img {
+         max-width: 100%;
+         transition: transform .2s ease-in-out;
+         }
+         .category img:hover, .additional-category img:hover {
+         transform: scale(1.05);
+         }
+         .sidebar {
+         position: fixed;
+         top: 0;
+         left: 0;
+         height: 100%;
+         width: 250px;
+         background-color: #111;
+         padding-top: 20px;
+         z-index: 1;
+         }
+         .sidebar a {
+         padding: 15px;
+         text-decoration: none;
+         font-size: 25px;
+         color: #818181;
+         display: block;
+         }
+         .sidebar a:hover {
+         color: #f1f1f1;
+         }
+         .search-box {
+         margin: 20px;
+         }
+         .col-md-4 p {
+         white-space: nowrap;
+         overflow: hidden;
+         text-overflow: ellipsis;
+         max-width: 100%;
+         }
+         .col-md-4 p {
+         word-wrap: break-word;
+         }
+         #category-0 {
+         background-color: #FF0000;
+         padding: 20px;
+         margin: 10px 0;
+         }
+         #category-1 {
+         background-color: #00FF00;
+         padding: 20px;
+         margin: 10px 0;
+         }
+         #category-2 {
+         background-color: #0000FF;
+         padding: 20px;
+         margin: 10px 0;
+         }
+         img {
+         width: 200px;
+         height: 200px;
+         object-fit: cover;
+         }
+         .modal-content {
+  width: 900px;
+  margin: auto;
+}
+.modal.show .modal-dialog{
+   display: flex;
+   justify-content: center;
+}
+video{
+   width: 100%;
+}
+      </style>
+   </head>
+   <body>
+      <div class="intro">
+    <div class="spinner-border text-danger" role="status" style="width: 5rem; height: 5rem; border-width: 0.5em;">
+        <span class="sr-only">Caricamento...</span>
+    </div>
+</div>
+
+      <header>
+         ScoutFlix
+      </header>
+      <nav>
+         <div class="logo">
+            <span style="margin-left: 10px;">SCOUTFLIX</span>
+         </div>
+         <div class="menu">
+            <a href="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/index.html">Home</a>
+            <a href="#series">Serie</a>
+            <a href="#films">Film</a>
+            <a href="#new">Novità</a>
+            <a href="#mylist">La mia lista</a>
+         </div>
+         <div class="search">
+            <input class="form-control mr-sm-2" type="text" id="searchInput" placeholder="Cerca" aria-label="Cerca">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="searchButton"><i class="fas fa-search"></i></button>
+         </div>
+      </nav>
+      <div class="container-fluid">
+      <section class="category">
+         <h2 style="color:red; font-size:2.00rem;">LA MIA LISTA</h2>
+         <div class="row">
+            <div class="col-md-4" id="film0" onclick="showVideo('video0')">
+               <img alt="CG Logo" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/tit.jpeg"/>
+               <p>Capi gruppo</p>
+            </div>
+            <div class="col-md-4" id="film1" onclick="showVideo('video1')">
+               <img alt="LC Logo" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/lc.jpg"/>
+               <p>Merdoledì (2023)</p>
+            </div>
+            <div class="col-md-4" id="film2" onclick="showVideo('video2')">
+               <img alt="EG Logo" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/eg.jpeg"/>
+               <p>Doc: nelle tue mani (2023)</p>
+            </div>
+            <div class="col-md-4" id="film3" onclick="showVideo('video3')">
+               <img alt="RS Logo" src="/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/img/rs.jpg"/>
+               <p>Staff RS (2023)</p>
+            </div>
+         </div>
+            <!-- Modal per il video -->
+            <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
+               <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h5 class="modal-title" id="videoModalLabel">Video</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                     </div>
+                     <div class="modal-body">
+                        <video id="videoPlayer" controls>
+                        </video>
+                     </div>
+                  </div>
+               </div>
+            </div>
+      </div>
+      <script>
+         setTimeout(function() {
+           document.querySelector('.intro').style.display = 'none';
+         }, 5000);
+         
+         function performSearch() {
+           var searchTerm = document.getElementById('searchInput').value.toLowerCase();
+           var allText = document.querySelectorAll('p');
+           var categories = document.querySelectorAll('.category');
+         
+           categories.forEach(function(category) {
+             var filmsInCategory = category.querySelectorAll('p');
+             var filmsVisible = 0;
+         
+             filmsInCategory.forEach(function(el) {
+               if (el.textContent.toLowerCase().includes(searchTerm)) {
+                 el.parentNode.style.display = 'block';
+                 filmsVisible++;
+               } else {
+                 el.parentNode.style.display = 'none';
+               }
+             });
+         
+             if (filmsVisible > 0) {
+               category.style.display = 'block';
+             } else {
+               category.style.display = 'none';
+             }
+           });
+         }
+         
+         document.getElementById('searchButton').addEventListener('click', performSearch);
+         
+         document.getElementById('searchInput').addEventListener('input', function(e) {
+           performSearch();
+         });
+
+         function showVideo(videoId) {
+    // Logica per mostrare il video corrispondente
+    let videoSrc = "";  // Inizializza la variabile per il percorso del video
+
+    // Assegna il percorso del video in base all'ID
+    switch(videoId) {
+         case 'video0':
+            videoSrc = "/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/finalecompleto.mp4";
+            break;
+        case 'video1':
+            videoSrc = "/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/finaleLC.mp4";
+            break;
+        case 'video2':
+            videoSrc = "/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/finaleEG.mp4";
+            break;
+        case 'video3':
+            videoSrc = "/Users/damianoguerriera/Downloads/Lancio Staff Passaggi/finaleRS.mp4";
+            break;
+        default:
+            console.error("ID del video non valido");
+            return;
+    }
+
+    document.getElementById('videoPlayer').src = videoSrc;
+
+    // Mostra il modal
+    $('#videoModal').modal('show');
+}
+$(document).ready(function() {
+  $('#myModal').on('shown.bs.modal', function () {
+    $(this).find('.modal-dialog').css({width:'auto',
+                               height:'auto', 
+                              'max-height':'100%'});
+  });
+});
+
+      </script>
+   </body>
+</html>
